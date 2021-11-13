@@ -1,0 +1,23 @@
+service_name: auth-service
+reporting:
+  endpoint: http://agent.traceableai:4317
+  secure: false
+  trace_reporter_type: OTLP
+opa:
+  endpoint: http://agent.traceableai:8181
+  pollPeriodSeconds: 30
+blocking_config:
+  skip_internal_request: false
+dataCapture:
+  httpHeaders:
+    request: true
+    response: true
+  httpBody:
+    request: true
+    response: true
+  rpcMetadata:
+    request: true
+    response: true
+  rpcBody:
+    request: true
+    response: true
