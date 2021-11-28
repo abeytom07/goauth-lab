@@ -40,8 +40,8 @@ func getpricehome(r *http.Request) []byte {
 	}
 
 	//response, err := http.Get(url)
-	client := &http.Client{}
-	//client := getTraceableHttpClient()
+	//client := &http.Client{}
+	client := getTraceableHttpClient()
 
 	response, err := client.Do(req)
 
@@ -76,8 +76,8 @@ func getbtcprice(r *http.Request) []byte {
 	}
 
 	//response, err := http.Get(url)
-	client := &http.Client{}
-	//client := getTraceableHttpClient()
+	//client := &http.Client{}
+	client := getTraceableHttpClient()
 
 	response, err := client.Do(req)
 
