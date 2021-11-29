@@ -10,3 +10,7 @@ RUN go build -tags 'traceable_filter' -o auth .
 #RUN go build -o auth .
 RUN curl -sSL https://raw.githubusercontent.com/Traceableai/goagent/main/filter/traceable/copy-library.sh | bash -s -- .
 CMD ["/app/auth"]
+
+
+# docker build -t 192.168.56.10:32000/go-lab-auth .
+# docker push 192.168.56.10:32000/go-lab-auth
