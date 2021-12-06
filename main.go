@@ -2,16 +2,15 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/gorilla/mux"
 
-	"github.com/Traceableai/goagent"
-	"github.com/Traceableai/goagent/config"
-	"github.com/Traceableai/goagent/instrumentation/net/traceablehttp"
+	// "github.com/Traceableai/goagent"
+	// "github.com/Traceableai/goagent/config"
+	// "github.com/Traceableai/goagent/instrumentation/net/traceablehttp"
 
 	"google.golang.org/grpc/credentials"
 
@@ -26,11 +25,11 @@ import (
 
 func main() {
 
-	cfg := config.Load()
+	// cfg := config.Load()
 
-	fmt.Println("init of the traceable agent", cfg)
-	shutdown := goagent.Init(cfg)
-	defer shutdown()
+	// fmt.Println("init of the traceable agent", cfg)
+	// shutdown := goagent.Init(cfg)
+	// defer shutdown()
 
 	// START OTEL
 	ctx := context.Background()
@@ -54,13 +53,13 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.Handle("/login", otelhttp.NewHandler(traceablehttp.NewHandler(http.HandlerFunc(Login), "/login"), "/login"))
-	router.Handle("/refresh", traceablehttp.NewHandler(http.HandlerFunc(Refresh), "/refresh"))
-	router.Handle("/test/{id}", traceablehttp.NewHandler(isAuthorized(test), "/test/{id}")).Methods("GET")
-	router.Handle("/customer/all", traceablehttp.NewHandler(isAuthorized(customercount), "/customer/all")).Methods("GET")
-	router.Handle("/customer/byid/{id}", traceablehttp.NewHandler(isAuthorized(customerbyid), "/customer/byid/{id}")).Methods("GET")
-	router.Handle("/crypto/home", traceablehttp.NewHandler(isAuthorized(cryptohome), "/crypto/home")).Methods("GET")
-	router.Handle("/crypto/price", traceablehttp.NewHandler(isAuthorized(cryptoprice), "/crypto/price")).Methods("GET")
+	router.Handle("/login", otelhttp.NewHandler(http.HandlerFunc(Login), "/login"))
+	router.Handle("/refresh", otelhttp.NewHandler(http.HandlerFunc(Refresh), "/refresh"))
+	router.Handle("/test/{id}", otelhttp.NewHandler(isAuthorized(test), "/test/{id}")).Methods("GET")
+	router.Handle("/customer/all", otelhttp.NewHandler(isAuthorized(customercount), "/customer/all")).Methods("GET")
+	router.Handle("/customer/byid/{id}", otelhttp.NewHandler(isAuthorized(customerbyid), "/customer/byid/{id}")).Methods("GET")
+	router.Handle("/crypto/home", otelhttp.NewHandler(isAuthorized(cryptohome), "/crypto/home")).Methods("GET")
+	router.Handle("/crypto/price", otelhttp.NewHandler(isAuthorized(cryptoprice), "/crypto/price")).Methods("GET")
 
 	/*
 		router.HandleFunc("/login", Login).Methods("GET")

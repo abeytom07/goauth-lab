@@ -7,7 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"github.com/Traceableai/goagent/instrumentation/net/traceablehttp"
+
+	//"github.com/Traceableai/goagent/instrumentation/net/traceablehttp"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 
 func getURL() string {
@@ -25,10 +27,10 @@ func getURL() string {
 	return url
 }
 
-
 func getTraceableHttpClient() http.Client {
 	return http.Client{
-		Transport: traceablehttp.NewTransport(http.DefaultTransport),
+		//Transport: traceablehttp.NewTransport(http.DefaultTransport),
+		Transport: otelhttp.NewTransport(http.DefaultTransport),
 	}
 }
 
