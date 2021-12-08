@@ -27,7 +27,7 @@ func getURL() string {
 	return url
 }
 
-func getTraceableHttpClient() http.Client {
+func getHttpClient() http.Client {
 	return http.Client{
 		//Transport: traceablehttp.NewTransport(http.DefaultTransport),
 		Transport: otelhttp.NewTransport(http.DefaultTransport),
@@ -50,7 +50,7 @@ func getdata(id string, r *http.Request) []byte {
 		log.Fatalf("failed to create the request: %v", err)
 	}
 	//client := &http.Client{}
-	client := getTraceableHttpClient()
+	client := getHttpClient()
 
 	//response, err := http.Get(url)
 	response, err := client.Do(req)
@@ -87,7 +87,7 @@ func getallcustomers(r *http.Request) []byte {
 
 	//response, err := http.Get(url)
 	//client := &http.Client{}
-	client := getTraceableHttpClient()
+	client := getHttpClient()
 
 	response, err := client.Do(req)
 	if err != nil {
@@ -122,7 +122,7 @@ func getcustomerbyid(id string, r *http.Request) []byte {
 
 	//response, err := http.Get(url)
 	//client := &http.Client{}
-	client := getTraceableHttpClient()
+	client := getHttpClient()
 
 	response, err := client.Do(req)
 
